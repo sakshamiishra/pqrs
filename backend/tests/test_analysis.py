@@ -49,6 +49,10 @@ def test_january_decisions_cover_following_delivery_days():
     result = analyze([], [])
     assert "hourly" in result["scope"]["units"]
     assert "exact-startTime" in result["scope"]["coverage_definition"]
+    assert result["scope"]["cutoff_local"] == "12:00 noon Europe/London on the day before delivery"
+    assert "fixed code-level analytical assumption" in result["scope"]["cutoff_assumption"]
+    assert "not configurable through the UI or environment variables" in result["scope"]["cutoff_assumption"]
+    assert "not an official Elexon or market procurement deadline" in result["scope"]["cutoff_assumption"]
 
 def test_extreme_finite_inputs_never_emit_infinity():
     start = ts()
